@@ -16,6 +16,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Withdrawal"
+            android:label="@string/title_activity_withdrawal" >
+        </activity>
+        <activity
+            android:name=".Deposit"
+            android:label="@string/title_activity_deposit" >
+        </activity>
+        <activity
+            android:name=".Transfer"
+            android:label="@string/title_activity_transfer" >
+        </activity>
     </application>
 
 </manifest>

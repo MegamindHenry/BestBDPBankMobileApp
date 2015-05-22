@@ -30,6 +30,8 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
+        int i;
+
 
 
         transferBut.setOnClickListener(new View.OnClickListener()
