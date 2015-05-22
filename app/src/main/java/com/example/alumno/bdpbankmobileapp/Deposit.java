@@ -1,9 +1,13 @@
 package com.example.alumno.bdpbankmobileapp;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 
 public class Deposit extends ActionBarActivity {
@@ -12,6 +16,18 @@ public class Deposit extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deposit);
+
+        final Button but = (Button)findViewById(R.id.homeButton);
+
+        but.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(Deposit.this, MainActivity.class);
+
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -35,5 +51,27 @@ public class Deposit extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void Deposit()
+    {
+        EditText input = (EditText) findViewById(R.id.account);
+        int accNum = Integer.parseInt(input.getText().toString());
+        input = (EditText) findViewById(R.id.amount);
+        int withAmount = Integer.parseInt(input.getText().toString());
+        String message = "";
+
+        //if(true)
+        // {
+        //*****accountBalance***** - withAmount;
+        message = "success";
+        //}
+
+        //else
+        //{
+        message = "lack funds";
+        // }
+
+        //Toast.makeText(MainActivity.this, message,Toast.LENGTH_LONG).show();
     }
 }
