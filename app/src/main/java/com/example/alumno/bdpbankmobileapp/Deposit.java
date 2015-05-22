@@ -1,62 +1,40 @@
 package com.example.alumno.bdpbankmobileapp;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 
-public class MainActivity extends ActionBarActivity {
+public class Deposit extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_deposit);
 
-        final Button withdrawalBut = (Button)findViewById(R.id.button4);
-        final Button transferBut = (Button)findViewById(R.id.button3);
-        final Button depositBut = (Button)findViewById(R.id.button5);
+        final Button but = (Button)findViewById(R.id.homeButton);
 
-        withdrawalBut.setOnClickListener(new View.OnClickListener()
+        but.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View view)
             {
-                Intent intent = new Intent(MainActivity.this, Transfer.class);
-
-                startActivity(intent);
-            }
-        });
-
-
-
-        transferBut.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View view)
-            {
-                Intent intent = new Intent(MainActivity.this, Withdrawal.class);
-
-                startActivity(intent);
-            }
-        });
-
-        depositBut.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View view)
-            {
-                Intent intent = new Intent(MainActivity.this, Deposit.class);
+                Intent intent = new Intent(Deposit.this, MainActivity.class);
 
                 startActivity(intent);
             }
         });
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_deposit, menu);
         return true;
     }
 
@@ -73,5 +51,27 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void Deposit()
+    {
+        EditText input = (EditText) findViewById(R.id.account);
+        int accNum = Integer.parseInt(input.getText().toString());
+        input = (EditText) findViewById(R.id.amount);
+        int withAmount = Integer.parseInt(input.getText().toString());
+        String message = "";
+
+        //if(true)
+        // {
+        //*****accountBalance***** - withAmount;
+        message = "success";
+        //}
+
+        //else
+        //{
+        message = "lack funds";
+        // }
+
+        //Toast.makeText(MainActivity.this, message,Toast.LENGTH_LONG).show();
     }
 }
