@@ -27,7 +27,7 @@ import android.widget.Toast;
                 public void onClick(View view)
                 {
 
-                    int lockStatus = 0;
+                    int lockStatus;
                     final String[] username = new String[] {"Cameron"};
 
                     EditText edit1 = (EditText) findViewById(R.id.editText);
