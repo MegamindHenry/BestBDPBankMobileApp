@@ -7,23 +7,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 
-public class Deposit extends ActionBarActivity {
+public class Transactions extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_deposit);
+        setContentView(R.layout.activity_transactions);
 
-        final Button but = (Button)findViewById(R.id.Depositbttn);
+        final Button but = (Button)findViewById(R.id.homeButton);
 
         but.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View view)
             {
-                Intent intent = new Intent(Deposit.this, MainActivity.class);
+                Intent intent = new Intent(Transactions.this, MainActivity.class);
 
                 startActivity(intent);
             }
@@ -34,7 +33,7 @@ public class Deposit extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_deposit, menu);
+        getMenuInflater().inflate(R.menu.menu_transactions, menu);
         return true;
     }
 
@@ -51,27 +50,5 @@ public class Deposit extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void Deposit()
-    {
-        EditText input = (EditText) findViewById(R.id.account);
-        int accNum = Integer.parseInt(input.getText().toString());
-        input = (EditText) findViewById(R.id.amount);
-        int withAmount = Integer.parseInt(input.getText().toString());
-        String message = "";
-
-        //if(true)
-        // {
-        //*****accountBalance***** - withAmount;
-        message = "success";
-        //}
-
-        //else
-        //{
-        message = "lack funds";
-        // }
-
-        //Toast.makeText(MainActivity.this, message,Toast.LENGTH_LONG).show();
     }
 }

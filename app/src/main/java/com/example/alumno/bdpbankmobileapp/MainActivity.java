@@ -20,6 +20,7 @@ public class MainActivity extends ActionBarActivity {
         final Button transferBut = (Button)findViewById(R.id.button3);
         final Button depositBut = (Button)findViewById(R.id.button5);
         final Button logoutBut = (Button)findViewById(R.id.button6);
+        final Button transactionsBut = (Button)findViewById(R.id.button7);
 
         withdrawalBut.setOnClickListener(new View.OnClickListener()
         {
@@ -30,7 +31,6 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(intent);
             }
         });
-
         
 
         transferBut.setOnClickListener(new View.OnClickListener()
@@ -58,6 +58,16 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View view)
             {
                 Intent intent = new Intent(MainActivity.this, LoginScreen.class);
+
+                startActivity(intent);
+            }
+        });
+
+        transactionsBut.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(MainActivity.this, Transactions.class);
 
                 startActivity(intent);
             }
