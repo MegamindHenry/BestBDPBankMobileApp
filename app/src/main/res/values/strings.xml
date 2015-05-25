@@ -6,4 +6,5 @@
     <string name="title_activity_withdrawal">Withdrawal</string>
     <string name="title_activity_deposit">Deposit</string>
     <string name="title_activity_transfer">Transfer</string>
+    <string name="title_activity_login_screen">LoginScreen</string>
 </resources>
