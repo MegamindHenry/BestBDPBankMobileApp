@@ -14,6 +14,7 @@ import android.widget.Toast;
     public class LoginScreen extends ActionBarActivity {
 
 
+        int loginCount = 0;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -25,9 +26,41 @@ import android.widget.Toast;
             {
                 public void onClick(View view)
                 {
-                    Intent intent = new Intent(LoginScreen.this, MainActivity.class);
 
-                    startActivity(intent);
+                    int lockStatus;
+                    final String[] username = new String[] {"Cameron"};
+
+                    EditText edit1 = (EditText) findViewById(R.id.editText);
+                    String text = edit1.getText().toString();
+
+                    if (text.matches(""))
+
+                    {Toast.makeText(getApplicationContext(), "Enter Username", Toast.LENGTH_LONG).show();
+                        return;}
+
+                    if (text.equals("Cameron") && loginCount < 3)
+                    {
+                        Intent intent = new Intent(LoginScreen.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                    if (text.equals("Cameron") == false) {
+                        Toast.makeText(getApplicationContext(), "Incorrect Username or Password", Toast.LENGTH_LONG).show();
+                        loginCount++;
+                    }
+                    {
+
+                        if (loginCount > 2)
+                        {
+                            lockStatus = 1;
+
+                            if (lockStatus == 1)
+                            {
+                                Toast.makeText(getApplicationContext(), "Too many failed attempts, contact an administrator", Toast.LENGTH_LONG).show();
+                                return;
+                            }
+                        }
+                    }
+
                 }
             });
 
