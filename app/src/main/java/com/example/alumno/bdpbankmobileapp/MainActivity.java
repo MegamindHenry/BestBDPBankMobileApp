@@ -32,8 +32,6 @@ public class MainActivity extends ActionBarActivity {
 
         
 
-
-
         transferBut.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View view)
@@ -53,6 +51,7 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(intent);
             }
         });
+
     }
 
     @Override
