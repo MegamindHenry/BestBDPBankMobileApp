@@ -72,7 +72,13 @@
             android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/editText"
-            android:layout_column="3" />
+            android:layout_column="3"
+            android:text="$"
+            android:autoText="false"
+            android:editable="false"
+            android:clickable="false"
+            android:elegantTextHeight="false"
+            android:textAlignment="textStart" />
     </TableRow>
 
     <TableRow

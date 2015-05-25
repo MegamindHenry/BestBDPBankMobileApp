@@ -28,6 +28,10 @@
             android:name=".Transfer"
             android:label="@string/title_activity_transfer" >
         </activity>
+        <activity
+            android:name=".Login"
+            android:label="@string/title_activity_login" >
+        </activity>
     </application>
 
 </manifest>
