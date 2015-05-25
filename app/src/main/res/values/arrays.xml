@@ -1,0 +1,8 @@
+<resources>
+
+    <string-array name="opciones">
+        <item> Checkings ($123.90)</item>
+    </string-array>
+
+
+</resources>
