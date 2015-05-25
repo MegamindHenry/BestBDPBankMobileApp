@@ -118,6 +118,7 @@
             android:layout_below="@+id/amount"
             android:layout_alignLeft="@+id/textView3"
             android:layout_alignStart="@+id/textView3" />
+
     </TableRow>
 
     <TableRow
