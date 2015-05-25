@@ -17,9 +17,9 @@ public class Deposit extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deposit);
 
-        final Button but = (Button)findViewById(R.id.Depositbttn);
+       final Button but = (Button)findViewById(R.id.Depositbttn);
 
-        but.setOnClickListener(new View.OnClickListener()
+       but.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View view)
             {
@@ -75,3 +75,4 @@ public class Deposit extends ActionBarActivity {
         //Toast.makeText(MainActivity.this, message,Toast.LENGTH_LONG).show();
     }
 }
+
