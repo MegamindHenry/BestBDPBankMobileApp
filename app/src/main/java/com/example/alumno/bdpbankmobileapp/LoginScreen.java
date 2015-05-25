@@ -14,7 +14,7 @@ import android.widget.Toast;
     public class LoginScreen extends ActionBarActivity {
 
 
-        int loginCount = 0;
+        int loginCount;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
