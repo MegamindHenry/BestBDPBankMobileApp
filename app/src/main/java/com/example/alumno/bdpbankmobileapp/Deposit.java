@@ -17,7 +17,7 @@ public class Deposit extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deposit);
 
-       final Button but = (Button)findViewById(R.id.Depositbttn);
+       final Button but = (Button)findViewById(R.id.cancelBttn);
 
        but.setOnClickListener(new View.OnClickListener()
         {
