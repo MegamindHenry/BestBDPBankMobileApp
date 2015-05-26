@@ -29,21 +29,31 @@ import android.widget.Toast;
 
                     int lockStatus;
                     final String[] username = new String[] {"Cameron"};
+                    final String[] password = new String[] {"Cameron"};
 
                     EditText edit1 = (EditText) findViewById(R.id.editText);
                     String text = edit1.getText().toString();
+
+                    EditText edit2 = (EditText) findViewById(R.id.editText2);
+                    String text2 = edit2.getText().toString();
 
                     if (text.matches(""))
 
                     {Toast.makeText(getApplicationContext(), "Enter Username", Toast.LENGTH_LONG).show();
                         return;}
 
-                    if (text.equals("Cameron") && loginCount < 3)
+                    if (text2.matches(""))
+
+                    {Toast.makeText(getApplicationContext(), "Enter Password", Toast.LENGTH_LONG).show();
+                        return;}
+
+                    if (text.equals("Cameron") && text2.equals("abc") && loginCount < 3)
                     {
                         Intent intent = new Intent(LoginScreen.this, MainActivity.class);
                         startActivity(intent);
                     }
-                    if (text.equals("Cameron") == false) {
+                    if (text.equals("Cameron") == false || text2.equals("abc") == false)
+                    {
                         Toast.makeText(getApplicationContext(), "Incorrect Username or Password", Toast.LENGTH_LONG).show();
                         loginCount++;
                     }
