@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.apache.http.NameValuePair;
+
 
 public class Transfer extends ActionBarActivity {
 
@@ -93,4 +95,6 @@ public class Transfer extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

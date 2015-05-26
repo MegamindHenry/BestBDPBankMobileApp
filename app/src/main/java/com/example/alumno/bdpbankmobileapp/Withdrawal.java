@@ -1,13 +1,30 @@
 package com.example.alumno.bdpbankmobileapp;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Withdrawal extends ActionBarActivity {
@@ -19,6 +36,7 @@ public class Withdrawal extends ActionBarActivity {
         setContentView(R.layout.activity_withdrawal);
 
         final Button but = (Button)findViewById(R.id.button);
+        final Button with = (Button)findViewById(R.id.complete);
 
         but.setOnClickListener(new View.OnClickListener()
         {
@@ -30,6 +48,65 @@ public class Withdrawal extends ActionBarActivity {
             }
         });
 
+        with.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                new ClientREST().execute();
+            }
+        });
+
+    }
+
+
+    private class ClientREST extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+
+            Log.i("Withdraw", "Withdraw is working in the back");
+
+            TextView txtAccount = (TextView) findViewById(R.id.account);
+            TextView txtAmount = (TextView) findViewById(R.id.amount);
+
+            try {
+                HttpClient httpClient = new DefaultHttpClient();
+                HttpPost post = new HttpPost("http://192.168.19.22:8080/BestBankServerApp/rest/transaction/");
+                post.setHeader("content-type", "application/x-www-form-urlencoded; charset=ISO-8859-1");
+
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
+                nameValuePairs.add(new BasicNameValuePair("transType", "Withdraw"));
+                nameValuePairs.add(new BasicNameValuePair("transAmount", txtAmount.getText().toString()));
+                nameValuePairs.add(new BasicNameValuePair("Account", txtAccount.getText().toString()));
+                post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+
+                HttpResponse resp = httpClient.execute(post);
+                String jsontext = EntityUtils.toString(resp.getEntity());
+                JSONObject objeto = new JSONObject(jsontext);
+                String estado = objeto.getString("estado");
+                Log.i("Withdrawal State", "------>" + estado);
+
+                if ("CORRECTO".equals(estado)) {
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(Withdrawal.this, "Se registró correctamente", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                } else {
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(Withdrawal.this, "Hubo un error", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+
+
+            } catch (Exception ex) {
+                Log.e("Withdrawal", "Error: " + ex);
+            }
+            return null;
+        }
     }
 
 
@@ -54,6 +131,9 @@ public class Withdrawal extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
 
     public void withdraw()
     {
