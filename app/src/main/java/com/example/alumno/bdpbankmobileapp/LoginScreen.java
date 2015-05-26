@@ -29,8 +29,8 @@ import android.widget.Toast;
                 {
 
                     int lockStatus;
-                    final String[] username = new String[] {"Cameron", "a"};
-                    final String[] password = new String[] {"Cameron", "a"};
+                    final String[] username = new String[] {"Cameron"};
+                    final String[] password = new String[] {"Cameron"};
 
                     EditText edit1 = (EditText) findViewById(R.id.editText);
                     String text = edit1.getText().toString();
@@ -54,7 +54,7 @@ import android.widget.Toast;
                         startActivity(intent);
                     }
                     //Change contains back to equals
-                    if (text.contains("a") == false || text2.contains("a") == false)
+                    if (text.equals("a") == false || text2.equals("a") == false)
                     {
                         Toast.makeText(getApplicationContext(), "Incorrect Username or Password", Toast.LENGTH_LONG).show();
                         loginCount++;
