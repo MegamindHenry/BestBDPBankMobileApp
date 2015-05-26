@@ -6,7 +6,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 
 public class Transactions extends ActionBarActivity {
@@ -25,6 +29,24 @@ public class Transactions extends ActionBarActivity {
                 Intent intent = new Intent(Transactions.this, MainActivity.class);
 
                 startActivity(intent);
+            }
+        });
+
+        final String[] accountTypes = new String[]{"Saving", "Checking"};
+
+        ArrayAdapter<String> adaptadorAT = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, accountTypes);
+        adaptadorAT.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        Spinner combo = (Spinner)findViewById(R.id.spinnerAT);
+        combo.setAdapter(adaptadorAT);
+
+        combo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, android.view.View v, int position, long id) {
+                Toast.makeText(Transactions.this, "Selected: " + accountTypes[position], Toast.LENGTH_LONG).show();
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+                Toast.makeText(Transactions.this, "Nothing Selected", Toast.LENGTH_LONG).show();
             }
         });
     }
