@@ -48,7 +48,7 @@ import android.widget.Toast;
                     {Toast.makeText(getApplicationContext(), "Enter Password", Toast.LENGTH_LONG).show();
                         return;}
 
-                    if (text.equals("Cameron") && text2.equals("abc") && loginCount < 3)
+                    if (text.equals("a") && text2.equals("a") && loginCount < 3)
                     {
                         Intent intent = new Intent(LoginScreen.this, MainActivity.class);
                         startActivity(intent);
