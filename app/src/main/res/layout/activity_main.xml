@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/imageView2"
             android:layout_column="0"
-            android:src="@drawable/bcp"
+            android:src="@drawable/bcplogo"
             android:layout_span="3" />
 
     </TableRow>
@@ -23,24 +23,26 @@
         android:layout_height="fill_parent">
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Deposit"
             android:id="@+id/button5"
             android:layout_below="@+id/button4"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_column="0"/>
+            android:layout_column="0"
+            android:layout_weight="1" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Withdraw"
             android:id="@+id/button3"
             android:layout_below="@+id/textView4"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_column="2"/>
+            android:layout_column="2"
+            android:layout_weight="1" />
     </TableRow>
 
     <TableRow
@@ -48,21 +50,23 @@
         android:layout_height="fill_parent">
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Transfer"
             android:id="@+id/button4"
             android:layout_below="@+id/button3"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_column="0"/>
+            android:layout_column="0"
+            android:layout_weight="1" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Transactions"
             android:id="@+id/button7"
-            android:layout_column="2"/>
+            android:layout_column="2"
+            android:layout_weight="1" />
     </TableRow>
 
     <TableRow
@@ -70,21 +74,23 @@
         android:layout_height="match_parent">
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Change Password"
             android:id="@+id/button8"
-            android:layout_column="0"/>
+            android:layout_column="0"
+            android:layout_weight="1" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Logout"
             android:id="@+id/button6"
             android:layout_below="@+id/button5"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_column="2"/>
+            android:layout_column="2"
+            android:layout_weight="1" />
     </TableRow>
 
 
