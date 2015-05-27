@@ -80,8 +80,9 @@ public class Withdrawal extends ActionBarActivity {
 
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
                 //nameValuePairs.add(new BasicNameValuePair("transType", "Withdraw"));
+                //String name = ((LoginApplication)getApplication()).getUsername();
                 nameValuePairs.add(new BasicNameValuePair("account", "1"));//txtAccount.getText().toString()));
-                nameValuePairs.add(new BasicNameValuePair("amount","30.0"));//txtAmount.getText().toString()));
+                nameValuePairs.add(new BasicNameValuePair("amount",txtAmount.getText().toString()));
                 nameValuePairs.add(new BasicNameValuePair("type", "1"));
                 post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
@@ -91,10 +92,10 @@ public class Withdrawal extends ActionBarActivity {
                 HttpResponse resp = httpClient.execute(post);
                 String jsontext = EntityUtils.toString(resp.getEntity());
                 JSONObject objeto = new JSONObject(jsontext);
-                String state = objeto.getString("state");
+                String state = objeto.getString("response");
                 Log.i("Withdrawal State", "------>" + state);
 
-                if ("correct".equals(state)) {
+                if ("success".equals(state)) {
                     runOnUiThread(new Runnable() {
                         public void run() {
                             Toast.makeText(Withdrawal.this, "Withdrew Occured", Toast.LENGTH_LONG).show();
