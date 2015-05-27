@@ -59,7 +59,7 @@ public class Withdrawal extends ActionBarActivity {
     }
 
 
-    private class ClientREST extends AsyncTask<Void, Void, Void> {
+   private class ClientREST extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... arg0) {
@@ -71,7 +71,7 @@ public class Withdrawal extends ActionBarActivity {
 
             try {
                 HttpClient httpClient = new DefaultHttpClient();
-                HttpPost post = new HttpPost("http://192.168.19.22:8080/BestBankServerApp/rest/transaction/");
+                HttpPost post = new HttpPost("http://192.168.19.22:8080/BestBankServerApp/rest/wrongCounter/");
                 post.setHeader("content-type", "application/x-www-form-urlencoded; charset=ISO-8859-1");
 
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
