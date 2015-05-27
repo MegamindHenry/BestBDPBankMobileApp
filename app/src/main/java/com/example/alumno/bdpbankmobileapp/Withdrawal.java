@@ -125,8 +125,35 @@ public class Withdrawal extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_home) {
+            Intent intent = new Intent(Withdrawal.this, MainActivity.class);
+
+            startActivity(intent);
+        }
+        if (id == R.id.action_deposit) {
+            Intent intent = new Intent(Withdrawal.this, Deposit.class);
+
+            startActivity(intent);
+        }
+        if (id == R.id.action_withdraw) {
+            Intent intent = new Intent(Withdrawal.this, Withdrawal.class);
+
+            startActivity(intent);
+        }
+        if (id == R.id.action_transfer) {
+            Intent intent = new Intent(Withdrawal.this, Transfer.class);
+
+            startActivity(intent);
+        }
+        if (id == R.id.action_transactions) {
+            Intent intent = new Intent(Withdrawal.this, Transactions.class);
+
+            startActivity(intent);
+        }
+        if (id == R.id.action_logout) {
+            Intent intent = new Intent(Withdrawal.this, LoginScreen.class);
+
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

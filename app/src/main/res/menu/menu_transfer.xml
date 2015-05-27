@@ -2,6 +2,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.alumno.bdpbankmobileapp.Transfer">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+    <item android:id="@+id/action_home" android:title="@string/action_home"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_deposit" android:title="@string/action_deposit"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_withdraw" android:title="@string/action_withdraw"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_transfer" android:title="@string/action_transfer"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_transactions" android:title="@string/action_transactions"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_logout" android:title="@string/action_logout"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>
