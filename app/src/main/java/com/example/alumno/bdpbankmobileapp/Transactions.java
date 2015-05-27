@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -31,13 +32,22 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Transactions extends ActionBarActivity {
+
+    public static String padRight(String s, int n) {
+        return String.format("%1$-" + n + "s", s);
+    }
+
+    public static String padLeft(String s, int n) {
+        return String.format("%1$" + n + "s", s);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transactions);
+
+        ((LoginApplication)getApplication().getUsername());
 
         final Button but = (Button)findViewById(R.id.homeButton);
 
@@ -89,7 +99,7 @@ public class Transactions extends ActionBarActivity {
 
             final ListView lstProductos = (ListView)findViewById(R.id.listView);
             TextView txtTest1 = (TextView)findViewById(R.id.editText3);
-            TextView txtTest2 = (TextView)findViewById(R.id.editText4);
+            //TextView txtTest2 = (TextView)findViewById(R.id.editText4);
 
             try {
                 HttpClient httpClient = new DefaultHttpClient();
@@ -104,12 +114,27 @@ public class Transactions extends ActionBarActivity {
 
 
                 final String[] listaClientes = new String[entries.length()];
+                String listtype = "";
+                String listdate = "";
+                String listamount = "";
+                String liststatus = "";
 
                 for (int i=0;i<entries.length();i++) {
                     JSONObject objeto = entries.getJSONObject(i);
-                    listaClientes[i] = objeto.getString("transType") + " " + objeto.getString("transDateTime") + objeto.getString("transAmount") + objeto.getString("transStatus");
+                    listtype += objeto.getString("transType") + "\r\n";
+                    listdate += objeto.getString("transDateTime") + "\r\n";
+                    listamount += objeto.getString("transAmount") + "\r\n";
+                    liststatus += objeto.getString("transStatus") + "\r\n";
+                    //listaClientes[i] = padRight((objeto.getString("transType")), 11) + padRight(((objeto.getString("transDateTime")).substring(0,9)), 11) + objeto.getString("transAmount") + objeto.getString("transStatus");
 
                 }
+
+                EditText listtype = (EditText)findViewById(R.id.listType);
+                EditText listdate = (EditText)findViewById(R.id.listDate);
+                EditText listamount = (EditText)findViewById(R.id.listType);
+                EditText liststatus = (EditText)findViewById(R.id.listType);
+
+
 
                 /*
                 String dateTime = testObj.getString("DateTime");
@@ -119,15 +144,15 @@ public class Transactions extends ActionBarActivity {
                 txtTest2.setText(amount);
 */
 
-                runOnUiThread(new Runnable() {
+/*                runOnUiThread(new Runnable() {
                     public void run() {
                         ArrayAdapter<String> adaptador = new ArrayAdapter<String>(
                                 Transactions.this,
-                                android.R.layout.simple_list_item_1,
+                                android.R.layout.listType,
                                 listaClientes);
                         lstProductos.setAdapter(adaptador);
                     }
-                });
+                });*/
 
 
             } catch (Exception ex) {
