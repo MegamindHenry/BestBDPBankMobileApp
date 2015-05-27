@@ -1,13 +1,30 @@
 package com.example.alumno.bdpbankmobileapp;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Deposit extends ActionBarActivity {
@@ -18,6 +35,7 @@ public class Deposit extends ActionBarActivity {
         setContentView(R.layout.activity_deposit);
 
        final Button but = (Button)findViewById(R.id.cancelBttn);
+       final Button dep = (Button)findViewById(R.id.complete);
 
        but.setOnClickListener(new View.OnClickListener()
         {
@@ -28,8 +46,71 @@ public class Deposit extends ActionBarActivity {
                 startActivity(intent);
             }
         });
+
+        dep.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                new ClientREST().execute();
+            }
+        });
     }
 
+    private class ClientREST extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+
+            Log.i("Deposit", "Deposit is working in the back");
+
+            TextView txtAccount = (TextView) findViewById(R.id.account);
+            TextView txtAmount = (TextView) findViewById(R.id.amount);
+
+            try {
+                HttpClient httpClient = new DefaultHttpClient();
+                HttpPost post = new HttpPost("http://192.168.19.164:8089/rest/transaction/deposit/");
+                post.setHeader("content-type", "application/x-www-form-urlencoded; charset=ISO-8859-1");
+
+
+
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
+                //nameValuePairs.add(new BasicNameValuePair("transType", "Withdraw"));
+                //String name = ((LoginApplication)getApplication()).getUsername();
+                nameValuePairs.add(new BasicNameValuePair("account", "1"));//txtAccount.getText().toString()));
+                nameValuePairs.add(new BasicNameValuePair("amount",txtAmount.getText().toString()));
+                nameValuePairs.add(new BasicNameValuePair("type", "1"));
+                post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+
+
+
+                HttpResponse resp = httpClient.execute(post);
+                String jsontext = EntityUtils.toString(resp.getEntity());
+                JSONObject objeto = new JSONObject(jsontext);
+                String state = objeto.getString("response");
+                Log.i("Deposit State", "------>" + state);
+
+                if ("success".equals(state)) {
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(Deposit.this, "Deposit Occured", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                } else {
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(Deposit.this, "Lack Funds  ", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+
+
+            } catch (Exception ex) {
+                Log.e("Withdrawal", "Error: " + ex);
+            }
+            return null;
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
