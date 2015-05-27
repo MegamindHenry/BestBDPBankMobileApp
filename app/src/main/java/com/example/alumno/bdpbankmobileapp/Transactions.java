@@ -1,16 +1,35 @@
 package com.example.alumno.bdpbankmobileapp;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Transactions extends ActionBarActivity {
@@ -21,6 +40,8 @@ public class Transactions extends ActionBarActivity {
         setContentView(R.layout.activity_transactions);
 
         final Button but = (Button)findViewById(R.id.homeButton);
+
+        new ClienteREST().execute();
 
         but.setOnClickListener(new View.OnClickListener()
         {
@@ -58,6 +79,64 @@ public class Transactions extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.menu_transactions, menu);
         return true;
     }
+
+    private class ClienteREST extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+
+            Log.i("ProductosBuscarREST", "Dentro de doInBackground()");
+
+            final ListView lstProductos = (ListView)findViewById(R.id.listView);
+            TextView txtTest1 = (TextView)findViewById(R.id.editText3);
+            TextView txtTest2 = (TextView)findViewById(R.id.editText4);
+
+            try {
+                HttpClient httpClient = new DefaultHttpClient();
+                //HttpGet get = new HttpGet("http://192.168.115.86:8080/trastienda2015_ws/rest/productos/"+txtProducto.getText().toString());
+                HttpGet get = new HttpGet("http://192.168.19.18:8080/BestBankServerApp/rest/transaction/Saving/2");
+
+                HttpResponse resp = httpClient.execute(get);
+                String jsontext = EntityUtils.toString(resp.getEntity());
+
+                JSONArray entries = new JSONArray(jsontext);
+                //JSONObject testObj = new JSONObject(jsontext);
+
+
+                final String[] listaClientes = new String[entries.length()];
+
+                for (int i=0;i<entries.length();i++) {
+                    JSONObject objeto = entries.getJSONObject(i);
+                    listaClientes[i] = objeto.getString("transType") + " " + objeto.getString("transDateTime") + objeto.getString("transAmount") + objeto.getString("transStatus");
+
+                }
+
+                /*
+                String dateTime = testObj.getString("DateTime");
+                String amount = testObj.getString("Amount");
+
+                txtTest1.setText(dateTime);
+                txtTest2.setText(amount);
+*/
+
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(
+                                Transactions.this,
+                                android.R.layout.simple_list_item_1,
+                                listaClientes);
+                        lstProductos.setAdapter(adaptador);
+                    }
+                });
+
+
+            } catch (Exception ex) {
+                Log.e("ProductosBuscarREST", "Error: " + ex);
+            }
+            return null;
+        }
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

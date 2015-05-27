@@ -17,10 +17,12 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -71,32 +73,36 @@ public class Withdrawal extends ActionBarActivity {
 
             try {
                 HttpClient httpClient = new DefaultHttpClient();
-                HttpPost post = new HttpPost("http://192.168.19.22:8080/BestBankServerApp/rest/wrongCounter/");
+                HttpPost post = new HttpPost("http://192.168.19.22:8080/BestBankServerApp/rest/transaction/");
                 post.setHeader("content-type", "application/x-www-form-urlencoded; charset=ISO-8859-1");
 
+
+
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
-                nameValuePairs.add(new BasicNameValuePair("transType", "Withdraw"));
+                //nameValuePairs.add(new BasicNameValuePair("transType", "Withdraw"));
                 nameValuePairs.add(new BasicNameValuePair("transAmount", txtAmount.getText().toString()));
                 nameValuePairs.add(new BasicNameValuePair("Account", txtAccount.getText().toString()));
                 post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 
+
+
                 HttpResponse resp = httpClient.execute(post);
                 String jsontext = EntityUtils.toString(resp.getEntity());
                 JSONObject objeto = new JSONObject(jsontext);
-                String estado = objeto.getString("estado");
-                Log.i("Withdrawal State", "------>" + estado);
+                String state = objeto.getString("state");
+                Log.i("Withdrawal State", "------>" + state);
 
-                if ("CORRECTO".equals(estado)) {
+                if ("correct".equals(state)) {
                     runOnUiThread(new Runnable() {
                         public void run() {
-                            Toast.makeText(Withdrawal.this, "Se registró correctamente", Toast.LENGTH_LONG).show();
+                            Toast.makeText(Withdrawal.this, "Withdrew Occured", Toast.LENGTH_LONG).show();
                         }
                     });
                 } else {
                     runOnUiThread(new Runnable() {
                         public void run() {
-                            Toast.makeText(Withdrawal.this, "Hubo un error", Toast.LENGTH_LONG).show();
+                            Toast.makeText(Withdrawal.this, "Lack Funds  ", Toast.LENGTH_LONG).show();
                         }
                     });
                 }
