@@ -47,7 +47,7 @@ public class Transactions extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transactions);
 
-        ((LoginApplication)getApplication().getUsername());
+        //((LoginApplication)getApplication()).getUsername();
 
         final Button but = (Button)findViewById(R.id.homeButton);
 
@@ -97,7 +97,7 @@ public class Transactions extends ActionBarActivity {
 
             Log.i("ProductosBuscarREST", "Dentro de doInBackground()");
 
-            final ListView lstProductos = (ListView)findViewById(R.id.listView);
+            //final ListView lstProductos = (ListView)findViewById(R.id.listView);
             TextView txtTest1 = (TextView)findViewById(R.id.editText3);
             //TextView txtTest2 = (TextView)findViewById(R.id.editText4);
 
@@ -121,18 +121,24 @@ public class Transactions extends ActionBarActivity {
 
                 for (int i=0;i<entries.length();i++) {
                     JSONObject objeto = entries.getJSONObject(i);
-                    listtype += objeto.getString("transType") + "\r\n";
-                    listdate += objeto.getString("transDateTime") + "\r\n";
-                    listamount += objeto.getString("transAmount") + "\r\n";
-                    liststatus += objeto.getString("transStatus") + "\r\n";
+                    listtype += objeto.getString("transType") + "\n";
+                    listdate += (objeto.getString("transDateTime")).substring(0,10) + "\n";
+                    listamount += objeto.getString("transAmount") + "\n";
+                    liststatus += objeto.getString("transStatus") + "\n";
                     //listaClientes[i] = padRight((objeto.getString("transType")), 11) + padRight(((objeto.getString("transDateTime")).substring(0,9)), 11) + objeto.getString("transAmount") + objeto.getString("transStatus");
 
                 }
+                Log.i("===>", "Number typed is: " + listtype);
+                Log.i("===>", "Number typed is: " + listdate);
+                Log.i("===>", "Number typed is: " + listamount);
+                Log.i("===>", "Number typed is: " + liststatus);
 
-                EditText listtype = (EditText)findViewById(R.id.listType);
-                EditText listdate = (EditText)findViewById(R.id.listDate);
-                EditText listamount = (EditText)findViewById(R.id.listType);
-                EditText liststatus = (EditText)findViewById(R.id.listType);
+
+
+                ((TextView)findViewById(R.id.listType)).setText(listtype);
+                ((TextView)findViewById(R.id.listDate)).setText(listdate);
+                ((TextView)findViewById(R.id.listAmount)).setText(listamount);
+                ((TextView)findViewById(R.id.listStatus)).setText(liststatus);
 
 
 

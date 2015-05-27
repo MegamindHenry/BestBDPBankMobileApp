@@ -90,9 +90,10 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="225dp"
             android:layout_span="4"
-            android:weightSum="4">
+            android:weightSum="4"
+            android:nestedScrollingEnabled="true">
 
 
             <TextView
