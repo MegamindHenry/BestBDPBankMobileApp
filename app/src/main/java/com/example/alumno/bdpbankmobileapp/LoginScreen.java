@@ -53,10 +53,8 @@ public class LoginScreen extends ActionBarActivity {
                 }
             });
 
-            but.setOnClickListener(new View.OnClickListener()
-            {
-                public void onClick(View v)
-                {
+            but.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
                     new ClientREST().execute();
                 }
             });
@@ -70,8 +68,8 @@ public class LoginScreen extends ActionBarActivity {
 
             Log.i("Login", "Login is working in the back");
 
-            TextView username = (TextView) findViewById(R.id.editText);
-            TextView password = (TextView) findViewById(R.id.editText2);
+            final TextView username = (TextView) findViewById(R.id.editText);
+            final TextView password = (TextView) findViewById(R.id.editText2);
 
 
             try {
@@ -98,8 +96,16 @@ public class LoginScreen extends ActionBarActivity {
                     runOnUiThread(new Runnable() {
                         public void run() {
                             Toast.makeText(LoginScreen.this, "Correct Login", Toast.LENGTH_LONG).show();
+
+                            LoginApplication.setUsername(username.getText().toString());
+                            String currentUserName=LoginApplication.getUsername();
+                            LoginApplication.setPassword(password.getText().toString());
+                            String currentPassword=LoginApplication.getPassword();
+
                             Intent intent = new Intent(LoginScreen.this, MainActivity.class);
                             startActivity(intent);
+
+
                         }
                     });
                 }
@@ -151,6 +157,8 @@ public class LoginScreen extends ActionBarActivity {
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
     }
+
+
 
 
     @Override
