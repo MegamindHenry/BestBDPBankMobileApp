@@ -71,26 +71,29 @@ public class LoginScreen extends ActionBarActivity {
             Log.i("Login", "Login is working in the back");
 
             TextView username = (TextView) findViewById(R.id.editText);
+            TextView password = (TextView) findViewById(R.id.editText2);
 
 
             try {
                 HttpClient httpClient = new DefaultHttpClient();
-                HttpPost post = new HttpPost("http://192.168.19.22:8080/BestBankServerApp/rest/wrongCounter/");
+                HttpPost post = new HttpPost("http://192.168.19.22:8080/BestBankServerApp/rest/Login/");
                 post.setHeader("content-type", "application/x-www-form-urlencoded; charset=ISO-8859-1");
 
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 
                 nameValuePairs.add(new BasicNameValuePair("Username", username.getText().toString()));
+                nameValuePairs.add(new BasicNameValuePair("Password", password.getText().toString()));
 
                 post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
-
                 HttpResponse resp = httpClient.execute(post);
+
                 String jsontext = EntityUtils.toString(resp.getEntity());
                 JSONObject objeto = new JSONObject(jsontext);
-                String name = objeto.getString("Username");
 
-                if ("Username".equals(name)) {
+                String response = objeto.getString("Response");
+
+                if (response.equals("yes") ) {
                     runOnUiThread(new Runnable() {
                         public void run() {
                             Toast.makeText(LoginScreen.this, "Correct Login", Toast.LENGTH_LONG).show();
@@ -99,7 +102,7 @@ public class LoginScreen extends ActionBarActivity {
                 } else {
                     runOnUiThread(new Runnable() {
                         public void run() {
-                            Toast.makeText(LoginScreen.this, "Error", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginScreen.this, "Incorrect Login", Toast.LENGTH_LONG).show();
                         }
                     });
                 }
