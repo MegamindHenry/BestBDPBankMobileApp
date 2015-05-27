@@ -76,41 +76,67 @@ public class LoginScreen extends ActionBarActivity {
 
             try {
                 HttpClient httpClient = new DefaultHttpClient();
-                HttpPost post = new HttpPost("http://192.168.19.22:8080/BestBankServerApp/rest/Login/");
+                HttpPost post = new HttpPost("http://192.168.19.164:8089/rest/Customer/login/");
                 post.setHeader("content-type", "application/x-www-form-urlencoded; charset=ISO-8859-1");
 
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 
-                nameValuePairs.add(new BasicNameValuePair("Username", username.getText().toString()));
-                nameValuePairs.add(new BasicNameValuePair("Password", password.getText().toString()));
+                nameValuePairs.add(new BasicNameValuePair("username", username.getText().toString()));
+                nameValuePairs.add(new BasicNameValuePair("password", password.getText().toString()));
 
                 post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
                 HttpResponse resp = httpClient.execute(post);
 
                 String jsontext = EntityUtils.toString(resp.getEntity());
+                Log.i("Login", jsontext);
                 JSONObject objeto = new JSONObject(jsontext);
 
-                String response = objeto.getString("Response");
+                String response = objeto.getString("response");
 
-                if (response.equals("yes") ) {
+                if (response.equals("success") ) {
                     runOnUiThread(new Runnable() {
                         public void run() {
                             Toast.makeText(LoginScreen.this, "Correct Login", Toast.LENGTH_LONG).show();
-                        }
-                    });
-                } else {
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            Toast.makeText(LoginScreen.this, "Incorrect Login", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(LoginScreen.this, MainActivity.class);
+                            startActivity(intent);
                         }
                     });
                 }
 
 
+                else if (response.equals("error") ) {
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(LoginScreen.this, "Error Login", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+
+                else if (response.equals("lock") ) {
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(LoginScreen.this, "Too many attempts, contact an administrator", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+
+
+
+                else {
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(LoginScreen.this, "Incorrect Login", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    );
+                }
+
             } catch (Exception ex) {
                 Log.e("Failed Login", "Error: " + ex);
             }
+
             return null;
         }
     }
