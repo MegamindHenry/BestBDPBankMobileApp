@@ -73,15 +73,16 @@ public class Withdrawal extends ActionBarActivity {
 
             try {
                 HttpClient httpClient = new DefaultHttpClient();
-                HttpPost post = new HttpPost("http://192.168.19.22:8080/BestBankServerApp/rest/transaction/");
+                HttpPost post = new HttpPost("http://192.168.19.164:8089/rest/transaction/withdraw/");
                 post.setHeader("content-type", "application/x-www-form-urlencoded; charset=ISO-8859-1");
 
 
 
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
                 //nameValuePairs.add(new BasicNameValuePair("transType", "Withdraw"));
-                nameValuePairs.add(new BasicNameValuePair("transAmount", txtAmount.getText().toString()));
-                nameValuePairs.add(new BasicNameValuePair("Account", txtAccount.getText().toString()));
+                nameValuePairs.add(new BasicNameValuePair("account", "1"));//txtAccount.getText().toString()));
+                nameValuePairs.add(new BasicNameValuePair("amount","30.0"));//txtAmount.getText().toString()));
+                nameValuePairs.add(new BasicNameValuePair("type", "1"));
                 post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 
